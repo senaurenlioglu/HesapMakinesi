@@ -1,54 +1,48 @@
-function getNumber(num) {
-    var input_var = document.getElementById('input');
-    input_var.value += num;
+function appendToInput(num) {
+    document.getElementById('input').value += num;
 }
-
-function getOperand(operand) {
-    var input_var = document.getElementById('input');
+function appendOperand(operand) {
+    const inputElement = document.getElementById('input');
     switch (operand) {
         case '+':
         case '-':
         case '*':
         case '/':
-            input_var.value += operand;
+            inputElement.value += operand;
             break;
         case '+/-':
-            if (input_var.value) {
-                input_var.value = input_var.value.charAt(0) === '-' ? 
-                    input_var.value.slice(1) : '-' + input_var.value;
+            if (inputElement.value) {
+                inputElement.value = inputElement.value.charAt(0) === '-' ?
+                    inputElement.value.slice(1) : '-' + inputElement.value;
             }
             break;
     }
 }
-
 function clearScreen() {
-    document.getElementById('input').value = "";
-    document.getElementById('answer').value = "";
+    document.getElementById('input').value = '';
+    document.getElementById('answer').value = '';
 }
-
-function backspace() {
-    var input_var = document.getElementById('input');
-    input_var.value = input_var.value.slice(0, -1);
+function removeLastCharacter() {
+    const inputElement = document.getElementById('input');
+    inputElement.value = inputElement.value.slice(0, -1);
 }
-
-function compute() {
-    var input_var = document.getElementById('input');
+function calculateResult() {
+    const inputElement = document.getElementById('input');
     try {
-        var ans = eval(input_var.value);
-        document.getElementById('answer').value = '=' + ans;
-    } catch (e) {
+        const result = eval(inputElement.value);
+        document.getElementById('answer').value = '=' + result;
+    } catch (error) {
         document.getElementById('answer').value = 'HATA';
     }
 }
-
-var i = 0;
-function brackets() {
-    var input_var = document.getElementById('input');
-    if (i == 0) {
-        input_var.value += '(';
-        i = 1;
+let isOpeningBracket = false;
+function toggleBrackets() {
+    const inputElement = document.getElementById('input');
+    if (!isOpeningBracket) {
+        inputElement.value += '(';
+        isOpeningBracket = true;
     } else {
-        input_var.value += ')';
-        i = 0;
+        inputElement.value += ')';
+        isOpeningBracket = false;
     }
 }
